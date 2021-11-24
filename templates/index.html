@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social</title>
+    <link rel="icon" href="data:;base64,=">
+    <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+    <script src="{{url_for('static', filename='plot_create.js')}}"></script>
+    <script src="{{url_for('static', filename='sum_arrays.js')}}"></script>
+    <script src="{{url_for('static', filename='sma.js')}}"></script>
+</head>
+
+<script>
+    const reddit_dict = {"BTCUSDT": ["cryptocurrency", "bitcoin", "btc"]};
+    const hourly_price_data = {{ hourly_price_data }};
+    const twitter_hourly_time = {{ twitter_hourly_time }}.map(x => new Date(x * 1000));
+    const twitter_hourly_data = {{ twitter_hourly_data }};
+    const twitter_daily_time = {{ twitter_daily_time }}.map(x => new Date(x / 1000000));
+    const twitter_daily_data = {{ twitter_daily_data }};
+    const google_time = {{ google_data|safe }}.map(x => new Date(x["time"] * 1000));
+    const google_comments = {{ google_data|safe }}.map(x => x["bitcoin"]);
+    const reddit_hourly_time = {{ reddit_hourly_time }}.map(x => new Date(x * 1000));
+    const reddit_hourly_data = {{ reddit_hourly_data }};
+    const reddit_daily_time = {{ reddit_daily_time }}.map(x => new Date(x / 1000000));
+    const reddit_daily_data = {{ reddit_daily_data }};
+</script>
+
+<body onload="googlePlotCreate();TwitterPlotCreate();RedditPlotCreate()">
+    <center>
+        <div>
+            <div id="google_div" style="margin-left:2%;margin-top:5%;display:inline-block"></div>
+        </div>
+        <div>
+            <div id="reddit_div" style="margin-right:2%;margin-top:0;display:inline-block"></div>
+            <div id="twitter_div" style="margin-left:2%;margin-top:0;display:inline-block"></div>
+        </div>
+    </center>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+{
+  "BTCUSDT": ["btc", "#btc", "bitcoin", "#bitcoin"],
+  "ETHUSDT": ["eth", "#eth", "ethereum", "#ethereum"],
+  "ADAUSDT": ["ada", "#ada", "cardano", "#cardano"],
+  "SOLUSDT": ["sol", "#sol", "solana", "#solana"],
+  "XRPUSDT": ["xrp", "#xrp", "ripple", "#ripple"],
+  "DOTUSDT": ["dot", "#dot","polkadot", "#polkadot"],
+  "DOGEUSDT": ["doge", "#doge", "dogecoin", "#dogecoin"]
+}

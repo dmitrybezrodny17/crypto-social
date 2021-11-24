@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>R3dd1t</title>
+</head>
+<body>
+<script>
+    reddit_time = [];
+    reddit_cryptocurrency = [];
+    {% for i in reddit_data %}
+        console.log("Time: " + {{ i | safe}}["time"] + ", bitcoin: " + {{ i | safe }}["bitcoin"]);
+    {% endfor %}
+</script>
+</body>
+</html>

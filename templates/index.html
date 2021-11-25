@@ -13,6 +13,9 @@
 <script>
     const reddit_dict = {"BTCUSDT": ["cryptocurrency", "bitcoin", "btc"]};
     const hourly_price_data = {{ hourly_price_data }};
+    const hourly_price_mean = {{ hourly_price_mean|safe }};
+    const daily_price_data = {{ daily_price_data }};
+    const daily_price_mean = {{ daily_price_mean|safe }};
     const twitter_hourly_time = {{ twitter_hourly_time }}.map(x => new Date(x * 1000));
     const twitter_hourly_data = {{ twitter_hourly_data }};
     const twitter_daily_time = {{ twitter_daily_time }}.map(x => new Date(x / 1000000));
@@ -29,15 +32,16 @@
     const google_week_data = {{ google_week_data }};
 </script>
 
-<body onload="googlePlotCreate();TwitterPlotCreate();RedditPlotCreate();GooglePlotCreate()">
+<body onload="TwitterPlotCreate();RedditPlotCreate();GooglePlotCreate();PricePlotCreate2()">
     <center>
         <div>
+            <div id="price_div" style="margin-right:2%;margin-top:5%;display:inline-block"></div>
+            <div id="price_div2" style="margin-right:2%;margin-top:5%;display:inline-block"></div>
             <div id="google_div" style="margin-left:2%;margin-top:5%;display:inline-block"></div>
-            <div id="google2_div" style="margin-left:2%;margin-top:5%;display:inline-block"></div>
         </div>
         <div>
-            <div id="reddit_div" style="margin-right:2%;margin-top:0;display:inline-block"></div>
-            <div id="twitter_div" style="margin-left:2%;margin-top:0;display:inline-block"></div>
+            <div id="reddit_div" style="margin-right:2%;margin-top:2%;display:inline-block"></div>
+            <div id="twitter_div" style="margin-left:2%;margin-top:2%;display:inline-block"></div>
         </div>
     </center>
 </body>

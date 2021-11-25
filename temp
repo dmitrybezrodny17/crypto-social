@@ -135,3 +135,30 @@ function Twitter2PlotCreate(){
     #    df[i] = df[i].apply(lambda x: (x - df[i].min()) / (df[i].max() - df[i].min())) # normalization
     # df.dropna(inplace=True)
     # price_mean = df['price_mean'].tolist()
+
+
+    function PricePlotCreate(){
+    const price_trace = {
+        x: twitter_hourly_time,
+        y: hourly_price_data,
+        name: 'Price',
+        line: {
+            color: "grey", width: 1
+        }
+    };
+    const layout = {
+        title: 'Price',
+        autosize: false,
+        height: 300,
+        width: 600,
+        margin: {r: 0, l: 35, b: 65, t: 30, pad: 5},
+	    legend: {
+            "orientation": "h", x: 0.4, y: -0.1
+        },
+        yaxis1: {
+        },
+        xaxis1: {
+        }
+    };
+    Plotly.newPlot('price_div', [price_trace], layout, {displayModeBar: false}, {responsive: true});
+}

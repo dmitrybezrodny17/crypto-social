@@ -11,16 +11,18 @@ def index(pair):
     with open('pairs.json') as json_file:
         keys_dict = json.load(json_file)
     keywords = keys_dict[pair.upper()]
-    twitter_hourly_time, twitter_hourly_data, hourly_price_data, twitter_daily_time, twitter_daily_data = get_tweets(pair, keywords)
+    twitter_hourly_time, twitter_hourly_data, hourly_price_data, hourly_price_mean, twitter_daily_time, twitter_daily_data, daily_price_data, daily_price_mean = get_tweets(pair, keywords)
     reddit_hourly_time, reddit_hourly_data, reddit_daily_time, reddit_daily_data = get_reddit()
     google_day_time, google_day_data, google_week_time, google_week_data = get_google2()
     google_data = get_google(keys_dict[pair.upper()][2])
     return render_template("index.html", twitter_hourly_time=twitter_hourly_time, twitter_hourly_data=twitter_hourly_data,
-                           hourly_price_data=hourly_price_data, reddit_hourly_time=reddit_hourly_time, reddit_hourly_data=reddit_hourly_data,
+                           hourly_price_data=hourly_price_data, hourly_price_mean=hourly_price_mean,
+                           reddit_hourly_time=reddit_hourly_time, reddit_hourly_data=reddit_hourly_data,
                            google_data=google_data, twitter_daily_time=twitter_daily_time, twitter_daily_data=twitter_daily_data,
                            reddit_daily_time=reddit_daily_time, reddit_daily_data=reddit_daily_data,
                            google_day_time=google_day_time, google_day_data=google_day_data,
-                           google_week_time=google_week_time, google_week_data=google_week_data)
+                           google_week_time=google_week_time, google_week_data=google_week_data,
+                           daily_price_data=daily_price_data, daily_price_mean=daily_price_mean)
 
 
 def db_tweets(pair):
@@ -41,15 +43,21 @@ def get_tweets(pair, keywords):
         columns.append(keyword.replace('#', 'q_h') if '#' in keyword else keyword.replace(keyword, 'q_' + keyword))
     df.columns = columns
     hourly_price_data = df['price'].tolist()
+    df.loc[:, 'price_mean'] = df['price'].rolling(window=24).mean().shift(-24)
+    hourly_price_mean = df['price_mean'].fillna("").tolist()
     df[columns[2]] = df[columns[2]] - df[columns[3]]
     df[columns[4]] = df[columns[4]] - df[columns[5]]
     twitter_hourly_time = df['time'].tolist()
     twitter_hourly_data = [df[i].tolist() for i in columns[2:]]
     df['time'] = pd.to_datetime(df['time'], unit='s')
-    df = df.set_index('time').resample('D').sum()
+    df = df.set_index('time').resample('D').agg({'price': 'mean', columns[2]: 'sum', columns[3]: 'sum', columns[4]: 'sum', columns[5]: 'sum'}) #sum()
+    print(df.tail())
+    daily_price_data = df['price'].tolist()
+    df.loc[:, 'price_mean'] = df['price'].rolling(window=7).mean()#.shift(-7)
+    daily_price_mean = df['price_mean'].fillna("").tolist()
     twitter_daily_time = df.index.values.tolist()
     twitter_daily_data = [df[i].tolist() for i in columns[2:]]
-    return twitter_hourly_time, twitter_hourly_data, hourly_price_data, twitter_daily_time, twitter_daily_data
+    return twitter_hourly_time, twitter_hourly_data, hourly_price_data, hourly_price_mean, twitter_daily_time, twitter_daily_data, daily_price_data, daily_price_mean
 
 
 def get_from_db(table, column):

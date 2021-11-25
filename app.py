@@ -13,6 +13,7 @@ def index(pair):
     keywords = keys_dict[pair.upper()]
     twitter_hourly_time, twitter_hourly_data, hourly_price_data, twitter_daily_time, twitter_daily_data = get_tweets(pair, keywords)
     reddit_hourly_time, reddit_hourly_data, reddit_daily_time, reddit_daily_data = get_reddit()
+    get_google2()
     google_data = get_google(keys_dict[pair.upper()][2])
     return render_template("index.html", twitter_hourly_time=twitter_hourly_time, twitter_hourly_data=twitter_hourly_data,
                            hourly_price_data=hourly_price_data, reddit_hourly_time=reddit_hourly_time, reddit_hourly_data=reddit_hourly_data,
@@ -86,6 +87,10 @@ def get_reddit():
     reddit_daily_data = [df[i].tolist() for i in columns[1:]]
     return reddit_hourly_time, reddit_hourly_data, reddit_daily_time, reddit_daily_data
 
+def get_google2():
+    ct = get_from_db("trends_day_bitcoin", None)
+    df = pd.DataFrame(ct)
+    print(df)
 
 if __name__ == '__main__':
     app.run(threaded=True)

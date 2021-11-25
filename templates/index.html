@@ -23,12 +23,17 @@
     const reddit_hourly_data = {{ reddit_hourly_data }};
     const reddit_daily_time = {{ reddit_daily_time }}.map(x => new Date(x / 1000000));
     const reddit_daily_data = {{ reddit_daily_data }};
+    const google_day_time = {{ google_day_time }}.map(x => new Date(x * 1000));
+    const google_day_data = {{ google_day_data }};
+    const google_week_time = {{ google_week_time }}.map(x => new Date(x * 1000));
+    const google_week_data = {{ google_week_data }};
 </script>
 
-<body onload="googlePlotCreate();TwitterPlotCreate();RedditPlotCreate()">
+<body onload="googlePlotCreate();TwitterPlotCreate();RedditPlotCreate();GooglePlotCreate()">
     <center>
         <div>
             <div id="google_div" style="margin-left:2%;margin-top:5%;display:inline-block"></div>
+            <div id="google2_div" style="margin-left:2%;margin-top:5%;display:inline-block"></div>
         </div>
         <div>
             <div id="reddit_div" style="margin-right:2%;margin-top:0;display:inline-block"></div>

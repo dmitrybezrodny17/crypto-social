@@ -247,3 +247,97 @@ function RedditPlotCreate(){
     };
     Plotly.newPlot('reddit_div', [tweets_bar1, tweets_bar2, tweets_bar3, tweets_bar4, tweets_bar5, tweets_bar6], layout,{displayModeBar: false}, {responsive: true});
 }
+
+function GooglePlotCreate(){
+    const tweets_bar1 = {
+        visible: false,
+        x: google_week_time,
+        y: google_week_data[0],
+        name: 'Search',
+        type: 'bar',
+        connectgaps: true,
+        hovertemplate: ' %{x},%{y} (r/cryptocurrency)<extra></extra>',
+        marker: {color: '#34A853'}
+    };
+    const tweets_bar2 = {
+        visible: false,
+        x: google_week_time,
+        y: google_week_data[1],
+        name: 'News',
+        type: 'bar',
+        hovertemplate: ' %{x},%{y} (r/bitcoin)<extra></extra>',
+        marker: {color: '#FBBC05'}
+    };
+    const tweets_bar3 = {
+        visible: false,
+        x: google_week_time,
+        y: google_week_data[2],
+        name: 'Youtube',
+        type: 'bar',
+        hovertemplate: ' %{x},%{y} (r/btc)<extra></extra>',
+        marker: {color: '#EA4335'}
+    };
+    const tweets_bar4 = {
+        x: google_day_time,
+        y: google_day_data[0],
+        name: 'Search',
+        type: 'bar',
+        hovertemplate: ' %{x},%{y} (r/cryptocurrency)<extra></extra>',
+        marker: {color: '#34A853'}
+    };
+    const tweets_bar5 = {
+        x: google_day_time,
+        y: google_day_data[1],
+        name: 'News',
+        type: 'bar',
+        hovertemplate: ' %{x},%{y} (r/bitcoin)<extra></extra>',
+        marker: {color: '#FBBC05'}
+    };
+    const tweets_bar6 = {
+        x: google_day_time,
+        y: google_day_data[2],
+        name: 'Youtube',
+        type: 'bar',
+        hovertemplate: ' %{x},%{y} (r/btc)<extra></extra>',
+        marker: {color: '#EA4335'}
+    };
+    const updatemenus = [{
+        buttons: [{
+            args: [{'visible': [false, false, false, true, true, true]}],
+            label: 'Day',
+            method: 'update'
+        },{
+            args: [{'visible': [true, true, true, false, false, false]}],
+            label: 'Week',
+            method: 'update'
+        }],
+        direction: 'left',
+        pad: {'r': 0, 't': 0},
+        showactive: true,
+        type: 'buttons',
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        yanchor: 'top'
+    }];
+    const layout = {
+        barmode: 'stack',
+        bargap: 0.3,
+        title: 'Google Trends',
+        autosize: false,
+        height: 300,
+        width: 600,
+        updatemenus: updatemenus,
+        margin: {r: 0, l: 35, b: 30, t: 30, pad: 5},
+        legend: {
+            "orientation": "h", x: 0.21, y: -0.15
+        },
+        yaxis: {
+            fixedrange: true,
+        },
+        xaxis: {
+            fixedrange: true
+        },
+    };
+    Plotly.newPlot('google2_div', [tweets_bar1, tweets_bar2, tweets_bar3, tweets_bar4, tweets_bar5, tweets_bar6], layout,{displayModeBar: false}, {responsive: true});
+}

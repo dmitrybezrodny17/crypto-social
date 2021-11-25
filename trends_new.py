@@ -35,7 +35,6 @@ for index, row in df_youtube.iterrows():
     id_count += 1
     update_db("trends_week_bitcoin", "youtube", row["bitcoin"], datetime.timestamp(index), id_count)
 
-'''
 pytrends.build_payload(["bitcoin"], cat=0, timeframe='now 1-d', geo='', gprop='news')
 df_news = pytrends.interest_over_time()
 pytrends.build_payload(["bitcoin"], cat=0, timeframe='now 1-d', geo='', gprop='youtube')
@@ -45,15 +44,14 @@ df_youtube = pytrends.interest_over_time()
 id_count = 0
 for index, row in df_search.iterrows():
     id_count += 1
-    update_db("search", row["bitcoin"], datetime.timestamp(index), id_count)
+    update_db("trends_day_bitcoin", "search", row["bitcoin"], datetime.timestamp(index), id_count)
 
 id_count = 0
 for index, row in df_news.iterrows():
     id_count += 1
-    update_db("news", row["bitcoin"], datetime.timestamp(index), id_count)
+    update_db("trends_day_bitcoin", "news", row["bitcoin"], datetime.timestamp(index), id_count)
 
 id_count = 0
 for index, row in df_youtube.iterrows():
     id_count += 1
-    update_db("youtube", row["bitcoin"], datetime.timestamp(index), id_count)
-'''
+    update_db("trends_day_bitcoin", "youtube", row["bitcoin"], datetime.timestamp(index), id_count)

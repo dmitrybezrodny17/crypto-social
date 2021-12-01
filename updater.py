@@ -1,8 +1,8 @@
 import json
 import dateutil.parser as dp
-from db_class import DBclass
-from twitter import get_tweets
-from binance import get_price
+from modules.db_class import DBclass
+from modules.twitter import get_tweets
+from modules.binance import get_price
 from datetime import datetime
 import time
 

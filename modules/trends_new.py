@@ -3,7 +3,7 @@ from pytrends.request import TrendReq
 from datetime import datetime
 
 def update_db(table, column, count, time, id):
-    conn = sqlite3.connect('data.sqlite')
+    conn = sqlite3.connect('../data.sqlite')
     cur = conn.cursor()
     query = f"UPDATE {table} SET {column}=:count, time=:time WHERE id=:id"
     cur.execute(query, (count, time, id))

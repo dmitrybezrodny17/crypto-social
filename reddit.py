@@ -2,13 +2,14 @@ import praw
 from db_class import DBclass
 from datetime import datetime
 import time
+from settings import client_id, client_secret, password, user_agent, username
 
 reddit = praw.Reddit(
-    client_id="tvC9dmt_MPORiuWOXvUY7w",
-    client_secret="Ht6U8SouHWDHez-MkIOMHCdWAMXwDg",
-    password="xvt192nv2r",
-    user_agent="crypto-mentions",
-    username="IvashkovMG",
+    client_id=client_id,
+    client_secret=client_secret,
+    password=password,
+    user_agent=user_agent,
+    username=username,
 )
 
 subs = ["cryptocurrency", "bitcoin", "btc", "ethereum",

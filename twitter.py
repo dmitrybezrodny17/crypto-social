@@ -1,6 +1,6 @@
 import requests
+from settings import TOKEN
 
-TOKEN = "AAAAAAAAAAAAAAAAAAAAALofUgEAAAAAQKqm4w1f%2FQ3gEdq2QcYvO4oF3xQ%3DthLM0LF4jNuuzFy8GF9yE7AcmhTgk90v1ZEMRdD4vRHXcHCjxS"
 
 def bearer_oauth(r):
     r.headers[

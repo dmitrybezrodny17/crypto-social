@@ -50,10 +50,10 @@ def get_tweets(pair, keywords):
     twitter_hourly_time = df['time'].tolist()
     twitter_hourly_data = [df[i].tolist() for i in columns[2:]]
     df['time'] = pd.to_datetime(df['time'], unit='s')
-    df = df.set_index('time').resample('D').agg({'price': 'mean', columns[2]: 'sum', columns[3]: 'sum', columns[4]: 'sum', columns[5]: 'sum'}) #sum()
+    df = df.set_index('time').resample('D').agg({'price': 'mean', columns[2]: 'sum', columns[3]: 'sum', columns[4]: 'sum', columns[5]: 'sum'})  # sum()
     print(df.tail())
     daily_price_data = df['price'].tolist()
-    df.loc[:, 'price_mean'] = df['price'].rolling(window=7).mean()#.shift(-7)
+    df.loc[:, 'price_mean'] = df['price'].rolling(window=7).mean()  # .shift(-7)
     daily_price_mean = df['price_mean'].fillna("").tolist()
     twitter_daily_time = df.index.values.tolist()
     twitter_daily_data = [df[i].tolist() for i in columns[2:]]
